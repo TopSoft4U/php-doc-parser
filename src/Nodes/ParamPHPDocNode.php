@@ -8,7 +8,7 @@ class ParamPHPDocNode implements BasePHPDocNode
     public string $paramName;
     public ?string $description;
 
-    public function __construct(string $type, string $paramName, ?string $description)
+    public function __construct(string $type, string $paramName, ?string $description = null)
     {
         $this->type = $type;
         $this->paramName = $paramName;

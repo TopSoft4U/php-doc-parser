@@ -5,9 +5,9 @@ namespace TopSoft4U\PhpDocParser\Nodes;
 class ReturnPHPDocNode implements BasePHPDocNode
 {
     public string $type;
-    public string $description;
+    public ?string $description = null;
 
-    public function __construct(string $type, string $description)
+    public function __construct(string $type, ?string $description = null)
     {
         $this->type = $type;
         $this->description = $description;
