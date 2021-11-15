@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDocParser\Nodes;
+namespace TopSoft4U\PhpDocParser\Nodes;
 
 class VarPHPDocNode implements BasePHPDocNode
 {

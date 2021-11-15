@@ -1,6 +1,6 @@
 {
   "name": "topsoft4u/php-doc-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://topsoft4u.com",
   "keywords": [
     "phpdoc",
@@ -12,7 +12,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "PhpDocParser\\": "src/"
+      "TopSoft4U\\PhpDocParser\\": "src/"
     }
   },
   "authors": [

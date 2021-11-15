@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDocParser;
+namespace TopSoft4U\PhpDocParser;
 
 class FindTagResult
 {

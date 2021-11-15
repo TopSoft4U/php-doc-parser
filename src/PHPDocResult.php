@@ -1,10 +1,10 @@
 <?php
 
-namespace PhpDocParser;
+namespace TopSoft4U\PhpDocParser;
 
 class PHPDocResult
 {
     public string $description;
-    /** @var \PhpDocParser\Nodes\BasePHPDocNode[] */
+    /** @var \TopSoft4U\PhpDocParser\Nodes\BasePHPDocNode[] */
     public array $nodes = [];
 }

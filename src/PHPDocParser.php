@@ -1,13 +1,13 @@
 <?php
 
-namespace PhpDocParser;
+namespace TopSoft4U\PhpDocParser;
 
-use PhpDocParser\Nodes\BasePHPDocNode;
-use PhpDocParser\Nodes\CustomPHPDocNode;
-use PhpDocParser\Nodes\ParamPHPDocNode;
-use PhpDocParser\Nodes\ReturnPHPDocNode;
-use PhpDocParser\Nodes\ThrowsPHPDocNode;
-use PhpDocParser\Nodes\VarPHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\BasePHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\CustomPHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\ParamPHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\ReturnPHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\ThrowsPHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\VarPHPDocNode;
 
 class PHPDocParser
 {
