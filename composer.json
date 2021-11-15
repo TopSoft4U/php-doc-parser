@@ -1,0 +1,29 @@
+{
+  "name": "topsoft4u/php-doc-parser",
+  "version": "1.0.0",
+  "homepage": "https://topsoft4u.com",
+  "keywords": [
+    "phpdoc",
+    "phpdocs",
+    "parser"
+  ],
+  "description": "Simple PHP doc parser",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "PhpDocParser\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Łukasz Kolasa",
+      "homepage": "https://topsoft4u.com",
+      "email": "lukasz.kolasa@topsoft4u.com"
+    }
+  ],
+  "require": {
+    "php": "7.4",
+    "ext-mbstring": "*"
+  }
+}
