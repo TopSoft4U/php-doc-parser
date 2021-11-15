@@ -23,7 +23,7 @@ class FindTagResult
         $endPos = mb_strpos($comment, "@", $startPos + 1);
         $isLastTag = $endPos === false;
 
-        $tag = mb_substr($comment, $startPos, $isLastTag ? null : $endPos);
+        $tag = mb_substr($comment, $startPos, $isLastTag ? null : ($endPos - $startPos));
         $tag = trim($tag);
         $newOffset = $isLastTag ? mb_strlen($comment) : $endPos;
 
