@@ -11,10 +11,12 @@ use TopSoft4U\PhpDocParser\Nodes\VarPHPDocNode;
 
 class PHPDocParser
 {
-    public function parse(?string $docComment)
+    public function rawParse(?string $docComment): PHPDocRawResult
     {
+        $result = new PHPDocRawResult();
+
         if (!$docComment) {
-            return [];
+            return $result;
         }
 
         $docComment = str_replace("\r", "", $docComment);
@@ -97,9 +99,37 @@ class PHPDocParser
             $nodes[] = $node;
         }
 
-        $result = new PHPDocResult();
         $result->description = implode("\n", $description);
         $result->nodes = $nodes;
         return $result;
     }
+    
+    public function parse(?string $docComment): PHPDocResult
+    {
+        $parseResult = $this->rawParse($docComment);
+
+        $result = new PHPDocResult();
+        $result->description = $parseResult->description;
+
+        foreach ($parseResult->nodes as $node) {
+            if ($node instanceof ReturnPHPDocNode) {
+                $result->return = $node;
+                continue;
+            }
+            if ($node instanceof VarPHPDocNode) {
+                $result->var = $node;
+                continue;
+            }
+            if ($node instanceof ParamPHPDocNode) {
+                $result->params[] = $node;
+                continue;
+            }
+            if ($node instanceof ThrowsPHPDocNode) {
+                $result->throws[] = $node;
+            }
+        }
+
+        return $result;
+    }
+
 }
