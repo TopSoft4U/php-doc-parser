@@ -121,7 +121,7 @@ class PHPDocParser
                 continue;
             }
             if ($node instanceof ParamPHPDocNode) {
-                $result->params[] = $node;
+                $result->params[$node->paramName] = $node;
                 continue;
             }
             if ($node instanceof ThrowsPHPDocNode) {
