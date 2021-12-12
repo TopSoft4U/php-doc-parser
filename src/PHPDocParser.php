@@ -20,8 +20,10 @@ class PHPDocParser
         }
 
         $docComment = str_replace("\r", "", $docComment);
+        $docComment = str_replace("/**", "", $docComment);
+        $docComment = str_replace("*/", "", $docComment);
+
         $lines = explode("\n", $docComment);
-        $lines = array_slice($lines, 1, count($lines) - 2);
 
         $description = [];
 
@@ -31,7 +33,7 @@ class PHPDocParser
             $line = trim($line);
 
             $tagPos = mb_strpos($line, "@");
-            if ($tagPos == false) {
+            if ($tagPos === false) {
                 if ($tagFound) {
                     // Not valid PHP doc content
                     continue;
