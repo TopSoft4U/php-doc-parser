@@ -20,5 +20,10 @@ class PHPDocResult
 
     public ?VarPHPDocNode $var = null;
     public ?ReturnPHPDocNode $return = null;
+
+    /**
+     * @var \TopSoft4U\PhpDocParser\Nodes\CustomPHPDocNode[]
+     */
+    public array $custom = [];
 //    public ?TemplatePHPDocNode $template = null;
 }

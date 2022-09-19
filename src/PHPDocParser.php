@@ -86,11 +86,15 @@ class PHPDocParser
                 case "@throws":
                     $node = ThrowsPHPDocNode::parse($content);
                     break;
+                case "@see":
+                    // Not needed
+                    break;
 //                case "@template":
 //                    $info = $this->parseTemplate($content);
 //                    break;
                 default:
                     $node = CustomPHPDocNode::parse($content);
+                    $node->tagName = $tagName;
                     break;
             }
 
@@ -105,7 +109,7 @@ class PHPDocParser
         $result->nodes = $nodes;
         return $result;
     }
-    
+
     public function parse(?string $docComment): PHPDocResult
     {
         $parseResult = $this->rawParse($docComment);
@@ -128,6 +132,11 @@ class PHPDocParser
             }
             if ($node instanceof ThrowsPHPDocNode) {
                 $result->throws[] = $node;
+                continue;
+            }
+            if ($node instanceof CustomPHPDocNode) {
+                $result->custom[] = $node;
+                continue;
             }
         }
 
