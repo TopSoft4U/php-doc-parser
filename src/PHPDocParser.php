@@ -32,6 +32,12 @@ class PHPDocParser
         foreach ($lines as $key => &$line) {
             $line = trim($line);
 
+            // Empty comment line between tags
+            if ($line === "*") {
+                unset($lines[$key]);
+                continue;
+            }
+
             $tagPos = mb_strpos($line, "@");
             if ($tagPos === false) {
                 if ($tagFound) {
