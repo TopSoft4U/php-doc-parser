@@ -32,10 +32,9 @@ class PHPDocParser
         foreach ($lines as $key => &$line) {
             $line = trim($line);
 
-            // Empty comment line between tags
-            if ($line === "*") {
-                unset($lines[$key]);
-                continue;
+            if (str_starts_with($line, "*")) {
+                $line = mb_substr($line, 1);
+                $line = trim($line);
             }
 
             $tagPos = mb_strpos($line, "@");
@@ -45,12 +44,15 @@ class PHPDocParser
                     continue;
                 }
 
-                $starPos = mb_strpos($line, "*");
-                if ($starPos === false) {
+                // First line of phpdoc and is empty - don't add
+                if (!$description && !$line)
                     continue;
+
+                $starPos = mb_strpos($line, "*");
+                if ($starPos !== false) {
+                    $line = mb_substr($line, $starPos + 1);
                 }
 
-                $line = mb_substr($line, $starPos + 1);
                 $line = trim($line);
                 $description[] = $line;
 
@@ -110,6 +112,16 @@ class PHPDocParser
 
             $nodes[] = $node;
         }
+
+        // Join all lines, but exclude empty or "\n" or "\r\n" lines from end of array
+        $description = array_reverse($description);
+        foreach ($description as $key => $line) {
+            if ($line) {
+                break;
+            }
+            unset($description[$key]);
+        }
+        $description = array_reverse($description);
 
         $result->description = implode("\n", $description);
         $result->nodes = $nodes;
