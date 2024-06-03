@@ -31,10 +31,6 @@ class VarPHPDocNode implements BasePHPDocNode
             $type = mb_substr($type, 0, $genericStart) . mb_substr($type, $genericEnd + 1);
         }
 
-        if (str_contains($type, "<") && str_contains($type, ">")) {
-            $i = 1;
-        }
-
         $varName = null;
         if (isset($parts[1])) {
             $varName = str_replace("$", "", $parts[1]);

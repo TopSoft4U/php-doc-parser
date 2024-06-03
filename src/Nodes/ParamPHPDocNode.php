@@ -7,6 +7,7 @@ class ParamPHPDocNode implements BasePHPDocNode
     public string $type;
     public string $paramName;
     public ?string $description;
+    public array $genericArgs = [];
 
     public function __construct(string $type, string $paramName, ?string $description = null)
     {
@@ -20,6 +21,16 @@ class ParamPHPDocNode implements BasePHPDocNode
         $parts = explode(" ", $content, 3);
 
         $type = $parts[0];
+
+        $genericArgs = [];
+        $genericStart = mb_strpos($type, "<");
+        $genericEnd = mb_strpos($type, ">");
+        if ($genericStart !== false && $genericEnd !== false) {
+            $generic = mb_substr($type, $genericStart + 1, $genericEnd - $genericStart - 1);
+            $genericArgs = explode(",", $generic);
+            $type = mb_substr($type, 0, $genericStart) . mb_substr($type, $genericEnd + 1);
+        }
+
         $paramName = str_replace("$", "", $parts[1]);
 
         $description = null;
@@ -27,7 +38,10 @@ class ParamPHPDocNode implements BasePHPDocNode
             $description = $parts[2];
         }
 
-        return new self($type, $paramName, $description);
+        $paramNode = new self($type, $paramName, $description);
+        $paramNode->genericArgs = $genericArgs;
+
+        return $paramNode;
     }
 
     public function __toString()
