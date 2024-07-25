@@ -4,6 +4,7 @@ namespace TopSoft4U\PhpDocParser;
 
 use TopSoft4U\PhpDocParser\Nodes\BasePHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\CustomPHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\DeprecatedPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\ParamPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\ReturnPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\ThrowsPHPDocNode;
@@ -32,7 +33,7 @@ class PHPDocParser
         foreach ($lines as $key => &$line) {
             $line = trim($line);
 
-            if (str_starts_with($line, "*")) {
+            if (substr($line, 0, 1) === "*") {
                 $line = mb_substr($line, 1);
                 $line = trim($line);
             }
@@ -94,6 +95,9 @@ class PHPDocParser
                 case "@throws":
                     $node = ThrowsPHPDocNode::parse($content);
                     break;
+                case "@deprecated":
+                    $node = DeprecatedPHPDocNode::parse($content);
+                    break;
                 case "@see":
                     // Not needed
                     break;
@@ -115,8 +119,8 @@ class PHPDocParser
 
         // Join all lines, but exclude empty or "\n" or "\r\n" lines from end of array
         $description = array_reverse($description);
-        foreach ($description as $key => $line) {
-            if ($line) {
+        foreach ($description as $key => $descLine) {
+            if ($descLine) {
                 break;
             }
             unset($description[$key]);
@@ -150,6 +154,10 @@ class PHPDocParser
             }
             if ($node instanceof ThrowsPHPDocNode) {
                 $result->throws[] = $node;
+                continue;
+            }
+            if ($node instanceof DeprecatedPHPDocNode) {
+                $result->deprecated = $node;
                 continue;
             }
             if ($node instanceof CustomPHPDocNode) {

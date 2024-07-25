@@ -2,6 +2,7 @@
 
 namespace TopSoft4U\PhpDocParser;
 
+use TopSoft4U\PhpDocParser\Nodes\DeprecatedPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\ReturnPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\VarPHPDocNode;
 
@@ -20,6 +21,7 @@ class PHPDocResult
 
     public ?VarPHPDocNode $var = null;
     public ?ReturnPHPDocNode $return = null;
+    public ?DeprecatedPHPDocNode $deprecated = null;
 
     /**
      * @var \TopSoft4U\PhpDocParser\Nodes\CustomPHPDocNode[]
