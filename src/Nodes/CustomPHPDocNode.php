@@ -5,19 +5,19 @@ namespace TopSoft4U\PhpDocParser\Nodes;
 class CustomPHPDocNode implements BasePHPDocNode
 {
     public ?string $tagName = null;
-    public string $value;
 
-    public function __construct(string $value)
+    public function __construct(public string $value)
     {
-        $this->value = $value;
     }
 
+    #[\Override]
     public static function parse(string $content): CustomPHPDocNode
     {
         return new self($content);
     }
 
-    public function __toString()
+    #[\Override]
+    public function __toString(): string
     {
         return $this->value;
     }

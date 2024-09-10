@@ -4,15 +4,11 @@ namespace TopSoft4U\PhpDocParser\Nodes;
 
 class ReturnPHPDocNode implements BasePHPDocNode
 {
-    public string $type;
-    public ?string $description = null;
-
-    public function __construct(string $type, ?string $description = null)
+    public function __construct(public string $type, public ?string $description = null)
     {
-        $this->type = $type;
-        $this->description = $description;
     }
 
+    #[\Override]
     public static function parse(string $content): ReturnPHPDocNode
     {
         $parts = explode(" ", $content, 2);
@@ -27,7 +23,8 @@ class ReturnPHPDocNode implements BasePHPDocNode
         return new self($type, $description);
     }
 
-    public function __toString()
+    #[\Override]
+    public function __toString(): string
     {
         return implode(" ", array_filter([$this->type, $this->description]));
     }

@@ -4,13 +4,11 @@ namespace TopSoft4U\PhpDocParser\Nodes;
 
 class GenericPHPDocNode implements BasePHPDocNode
 {
-    public string $value;
-
-    public function __construct(string $value)
+    public function __construct(public string $value)
     {
-        $this->value = $value;
     }
 
+    #[\Override]
     public static function parse(string $content): GenericPHPDocNode
     {
 //        $parts = explode(" ", $content, 3);
@@ -21,7 +19,8 @@ class GenericPHPDocNode implements BasePHPDocNode
         return new self($content);
     }
 
-    public function __toString()
+    #[\Override]
+    public function __toString(): string
     {
         return $this->value;
     }

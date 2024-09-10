@@ -33,7 +33,7 @@ class PHPDocParser
         foreach ($lines as $key => &$line) {
             $line = trim($line);
 
-            if (substr($line, 0, 1) === "*") {
+            if (str_starts_with($line, "*")) {
                 $line = mb_substr($line, 1);
                 $line = trim($line);
             }

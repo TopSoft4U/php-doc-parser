@@ -4,18 +4,13 @@ namespace TopSoft4U\PhpDocParser\Nodes;
 
 class ParamPHPDocNode implements BasePHPDocNode
 {
-    public string $type;
-    public string $paramName;
-    public ?string $description;
     public array $genericArgs = [];
 
-    public function __construct(string $type, string $paramName, ?string $description = null)
+    public function __construct(public string $type, public string $paramName, public ?string $description = null)
     {
-        $this->type = $type;
-        $this->paramName = $paramName;
-        $this->description = $description;
     }
 
+    #[\Override]
     public static function parse(string $content): ParamPHPDocNode
     {
         $parts = explode(" ", $content, 3);
@@ -44,7 +39,8 @@ class ParamPHPDocNode implements BasePHPDocNode
         return $paramNode;
     }
 
-    public function __toString()
+    #[\Override]
+    public function __toString(): string
     {
         return implode(" ", array_filter([$this->type, $this->paramName, $this->description]));
     }

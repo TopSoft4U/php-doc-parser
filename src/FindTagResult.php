@@ -4,13 +4,8 @@ namespace TopSoft4U\PhpDocParser;
 
 class FindTagResult
 {
-    public string $tag;
-    public int $offset;
-
-    public function __construct(string $tag, int $offset)
+    public function __construct(public string $tag, public int $offset)
     {
-        $this->tag = $tag;
-        $this->offset = $offset;
     }
 
     public static function Find(string $comment, int $offset = 0): ?FindTagResult
