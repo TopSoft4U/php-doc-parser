@@ -8,6 +8,8 @@ use TopSoft4U\PhpDocParser\Nodes\DeprecatedPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\ParamPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\ReturnPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\ThrowsPHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\TemplatePHPDocNode;
+use TopSoft4U\PhpDocParser\Nodes\ExtendsPHPDocNode;
 use TopSoft4U\PhpDocParser\Nodes\VarPHPDocNode;
 
 class PHPDocParser
@@ -101,9 +103,13 @@ class PHPDocParser
                 case "@see":
                     // Not needed
                     break;
-//                case "@template":
-//                    $info = $this->parseTemplate($content);
-//                    break;
+                case "@template":
+                    $node = TemplatePHPDocNode::parse($content);
+                    break;
+                case "@extends":
+                case "@implements":
+                    $node = ExtendsPHPDocNode::parse($content);
+                    break;
                 default:
                     $node = CustomPHPDocNode::parse($content);
                     $node->tagName = $tagName;
@@ -158,6 +164,14 @@ class PHPDocParser
             }
             if ($node instanceof DeprecatedPHPDocNode) {
                 $result->deprecated = $node;
+                continue;
+            }
+            if ($node instanceof TemplatePHPDocNode) {
+                $result->templates[] = $node;
+                continue;
+            }
+            if ($node instanceof ExtendsPHPDocNode) {
+                $result->extends[] = $node;
                 continue;
             }
             if ($node instanceof CustomPHPDocNode) {
