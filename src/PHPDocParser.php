@@ -76,7 +76,9 @@ class PHPDocParser
             $offset = $tagInfo->offset;
             $tag = $tagInfo->tag;
 
-            [$tagName, $content] = explode(" ", $tag, 2);
+            $parts = explode(" ", $tag, 2);
+            $tagName = $parts[0];
+            $content = $parts[1] ?? "";
             if ($tagName[0] != "@") {
                 // Invalid tag
                 continue;
